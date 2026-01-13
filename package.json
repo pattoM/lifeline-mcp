@@ -1,0 +1,50 @@
+{
+  "name": "lifeline-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for on-demand human-in-the-loop interactions via Slack - get human input when AI agents are stuck or facing critical decisions",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "lifeline-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "dev": "bun run src/index.ts",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "slack",
+    "human-in-the-loop",
+    "hitl",
+    "ai-agents"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:pattoM/lifeline-mcp.git"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "vitest": "^4.0.17"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@slack/bolt": "^4.6.0",
+    "zod": "^4.3.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
