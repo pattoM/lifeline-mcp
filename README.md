@@ -2,6 +2,47 @@
 
 Human-in-the-loop MCP server for Claude Code and other AI agents. Get human input via Slack when AI agents are stuck or facing critical decisions.
 
+## Quick Demo
+
+> **Note:** Make sure you've exported the required environment variables before running. See [Configuration](#configuration) below.
+
+```bash    
+claude \
+  --mcp-config '{"mcpServers":{"lifeline":{"command":"npx","args":["lifeline-mcp"]}}}' \
+  --allowedTools "mcp__lifeline__ask_human" \
+  -p "Bootstrap a simple MCP server that exposes a get_weather tool. \
+      If you encounter any dependency issues, use the ask_human tool to ask for help"
+```
+
+**What happens:**
+
+1. Claude scaffolds the project, installs the MCP SDK, and writes the tool with Zod validation
+2. While testing, Claude discovers the tool's input schema isn't working — the MCP SDK expects Zod v3 but installed Zod v4
+3. Claude calls `ask_human` — a message appears in Slack:
+
+   ```
+   ┌───────────────────────────────────────────────────────────────┐
+   │ AI Agent Needs Input                                          │
+   ├───────────────────────────────────────────────────────────────┤
+   │ @you Question:                                                │
+   │ Hit a Zod version compatibility issue. How should I proceed?  │
+   │                                                               │
+   │ Context:                                                      │
+   │ The MCP SDK's schema conversion expects Zod v3, but npm       │
+   │ installed Zod v4. The tool's inputSchema is empty.            │
+   │                                                               │
+   │ Suggested options:                                            │
+   │ 1. Import from "zod/v3" — quick fix, keeps v4 available       │
+   │ 2. Write a compat layer — more flexible but more code         │
+   │ 3. Use raw JSON Schema — works but loses type inference       │
+   ├───────────────────────────────────────────────────────────────┤
+   │ Reply in a thread to respond to the agent.                    │
+   └───────────────────────────────────────────────────────────────┘
+   ```
+
+4. You reply: *"Just use v3, it's a proof of concept"*
+5. Claude fixes the import and the MCP server works
+
 ## How It Works
 
 ```
@@ -91,7 +132,6 @@ export LIFELINE_TIMEOUT_MS="180000"              # optional
 # Then run Claude Code
 claude
 ```
-
 
 ## Tool: `ask_human`
 
