@@ -1,6 +1,6 @@
 {
   "name": "lifeline-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for on-demand human-in-the-loop interactions via Slack - get human input when AI agents are stuck or facing critical decisions",
   "type": "module",
   "main": "dist/index.js",
