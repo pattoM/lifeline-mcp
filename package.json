@@ -30,7 +30,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:pattoM/lifeline-mcp.git"
+    "url": "git+https://github.com/pattoM/lifeline-mcp.git"
+  },
+  "homepage": "https://github.com/pattoM/lifeline-mcp",
+  "bugs": {
+    "url": "https://github.com/pattoM/lifeline-mcp/issues"
   },
   "devDependencies": {
     "@types/bun": "latest",
